@@ -1,3 +1,5 @@
+import { getStorage } from "./storage.js";
+
 const HISTORY_KEY = "qrstudio-history";
 const DOWNLOADS_KEY = "qrstudio-downloads";
 const GENERATED_KEY = "qrstudio-generated";
@@ -5,7 +7,7 @@ const HISTORY_LIMIT = 80;
 
 function readJson(key, fallback) {
   try {
-    const stored = window.localStorage.getItem(key);
+    const stored = getStorage().getItem(key);
     return stored ? JSON.parse(stored) : fallback;
   } catch {
     return fallback;
@@ -13,7 +15,7 @@ function readJson(key, fallback) {
 }
 
 function writeJson(key, value) {
-  window.localStorage.setItem(key, JSON.stringify(value));
+  getStorage().setItem(key, JSON.stringify(value));
 }
 
 export function getHistoryItems() {
@@ -46,20 +48,20 @@ export function clearHistoryItems() {
 export function incrementDownloadCount() {
   const current = getDownloadCount();
   const next = current + 1;
-  window.localStorage.setItem(DOWNLOADS_KEY, String(next));
+  getStorage().setItem(DOWNLOADS_KEY, String(next));
   return next;
 }
 
 export function getDownloadCount() {
-  return Number(window.localStorage.getItem(DOWNLOADS_KEY) || 0);
+  return Number(getStorage().getItem(DOWNLOADS_KEY) || 0);
 }
 
 export function getGeneratedCount() {
-  return Number(window.localStorage.getItem(GENERATED_KEY) || 0);
+  return Number(getStorage().getItem(GENERATED_KEY) || 0);
 }
 
 export function setGeneratedCount(value) {
-  window.localStorage.setItem(GENERATED_KEY, String(value));
+  getStorage().setItem(GENERATED_KEY, String(value));
 }
 
 export function incrementGeneratedCount() {

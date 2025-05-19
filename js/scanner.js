@@ -82,7 +82,7 @@ export function initScanner({
       return;
     }
 
-    scannerInstance = new Html5Qrcode(regionId);
+    scannerInstance = new window.Html5Qrcode(regionId);
     stopButtonState(startButton, stopButton, true);
 
     try {

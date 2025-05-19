@@ -1,3 +1,5 @@
+import { getStorage } from "./storage.js";
+
 const THEME_KEY = "qrstudio-theme";
 
 function getPreferredTheme() {
@@ -5,7 +7,7 @@ function getPreferredTheme() {
     return "light";
   }
 
-  const stored = window.localStorage.getItem(THEME_KEY);
+  const stored = getStorage().getItem(THEME_KEY);
   if (stored === "light" || stored === "dark") {
     return stored;
   }
@@ -19,7 +21,7 @@ function getPreferredTheme() {
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = theme;
-  window.localStorage.setItem(THEME_KEY, theme);
+  getStorage().setItem(THEME_KEY, theme);
 
   const toggle = document.getElementById("themeToggle");
   if (toggle) {

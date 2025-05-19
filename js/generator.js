@@ -595,14 +595,21 @@ export async function renderQrCode({
     },
   };
 
-  await QRCode.toCanvas(canvas, payload, qrOptions);
+  if (!window.QRCode) {
+    throw new Error("QR code library failed to load.");
+  }
+
+  await window.QRCode.toCanvas(canvas, payload, qrOptions);
 
   if (logoDataUrl) {
     await drawLogo(canvas, logoDataUrl);
   }
 
   const dataUrl = canvas.toDataURL("image/png");
-  const svg = await QRCode.toString(payload, { ...qrOptions, type: "svg" });
+  const svg = await window.QRCode.toString(payload, {
+    ...qrOptions,
+    type: "svg",
+  });
 
   return { dataUrl, svg };
 }
