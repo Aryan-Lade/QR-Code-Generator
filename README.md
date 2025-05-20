@@ -37,7 +37,7 @@ QR-Studio/
 
 ## Libraries
 
-The app loads the following browser libraries from CDNs:
+The app uses a local browser bundle for QR generation:
 
 - qrcode for QR generation
 - html5-qrcode for webcam scanning
