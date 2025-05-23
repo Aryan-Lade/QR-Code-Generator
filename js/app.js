@@ -1,30 +1,14 @@
 import { initTheme } from "./theme.js";
 import {
-  DEFAULT_SETTINGS,
-  buildPayload,
-  collectFormValues,
-  getDefaultFieldValues,
-  getPreviewSummary,
-  getTypeTitle,
-  renderFields,
-  renderQrCode,
-  validateForm,
+  DEFAULT_SETTINGS, buildPayload, collectFormValues, getDefaultFieldValues,
+  getPreviewSummary, getTypeTitle, renderFields, renderQrCode, validateForm,
 } from "./generator.js";
 import {
-  addHistoryItem,
-  clearHistoryItems,
-  deleteHistoryItem,
-  formatHistoryTimestamp,
-  getDownloadCount,
-  getHistoryItems,
-  incrementDownloadCount,
+  addHistoryItem, clearHistoryItems, deleteHistoryItem, formatHistoryTimestamp,
+  getDownloadCount, getHistoryItems, incrementDownloadCount,
 } from "./history.js";
 import {
-  copyText,
-  createDownloadName,
-  downloadPng,
-  downloadSvg,
-  shareQr,
+  copyText, createDownloadName, downloadPng, downloadSvg, shareQr,
 } from "./download.js";
 import { initScanner } from "./scanner.js";
 import { getAnalyticsSnapshot, updateAnalyticsView } from "./analytics.js";
@@ -86,16 +70,13 @@ function cacheDom() {
 
 function showToast(title, message, variant = "success") {
   const container = document.getElementById("toastContainer");
-  if (!container) {
-    return;
-  }
+  if (!container) return;
 
   const icon =
-    variant === "error"
-      ? "fa-triangle-exclamation"
-      : variant === "success"
-        ? "fa-circle-check"
-        : "fa-circle-info";
+    variant === "error" ? "fa-triangle-exclamation"
+    : variant === "success" ? "fa-circle-check"
+    : "fa-circle-info";
+
   const toast = document.createElement("div");
   toast.className = `toast ${variant === "error" ? "is-error" : "is-success"}`;
   toast.innerHTML = `
@@ -108,8 +89,7 @@ function showToast(title, message, variant = "success") {
   `;
 
   container.appendChild(toast);
-  const dismiss = toast.querySelector("button");
-  dismiss?.addEventListener("click", () => toast.remove());
+  toast.querySelector("button")?.addEventListener("click", () => toast.remove());
 
   window.setTimeout(() => {
     toast.style.opacity = "0";
@@ -133,25 +113,16 @@ function setLoadingVisible(visible) {
 
 function setPreviewPlaceholderVisible(visible) {
   dom.previewPlaceholder?.classList.toggle("is-hidden", !visible);
-  if (dom.previewPlaceholder) {
-    dom.previewPlaceholder.style.opacity = visible ? "1" : "0";
-  }
-  if (dom.qrCanvas) {
-    dom.qrCanvas.style.opacity = visible ? "0" : "1";
-  }
+  if (dom.previewPlaceholder) dom.previewPlaceholder.style.opacity = visible ? "1" : "0";
+  if (dom.qrCanvas) dom.qrCanvas.style.opacity = visible ? "0" : "1";
 }
 
 function updateMarginLabel() {
-  if (dom.qrMarginValue && dom.qrMargin) {
-    dom.qrMarginValue.textContent = dom.qrMargin.value;
-  }
+  if (dom.qrMarginValue && dom.qrMargin) dom.qrMarginValue.textContent = dom.qrMargin.value;
 }
 
 function readLogoAsDataUrl(file) {
-  if (!file) {
-    return Promise.resolve("");
-  }
-
+  if (!file) return Promise.resolve("");
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(String(reader.result || ""));
@@ -184,24 +155,22 @@ function renderHistory(items) {
   state.history = items;
   if (!items.length) {
     dom.historyGrid.innerHTML = `
-      <div class="history-card glass-panel" style="grid-column: 1 / -1; text-align: center;">
-        <strong style="font-family: var(--font-heading); font-size: 1.3rem;">No saved QR codes yet.</strong>
+      <div class="history-card" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+        <strong style="font-family: var(--font-heading); font-size: 1.2rem; display:block; margin-bottom:8px;">No saved QR codes yet.</strong>
         <p style="margin: 0; color: var(--text-soft);">Generated codes will appear here automatically and persist in your browser.</p>
       </div>
     `;
     return;
   }
 
-  dom.historyGrid.innerHTML = items
-    .map((item) => createHistoryCard(item))
-    .join("");
+  dom.historyGrid.innerHTML = items.map((item) => createHistoryCard(item)).join("");
 }
 
 function createHistoryCard(item) {
   return `
-    <article class="history-card glass-panel" data-id="${item.id}">
+    <article class="history-card" data-id="${item.id}">
       <div class="history-preview">
-        <img src="${item.previewDataUrl}" alt="History preview for ${escapeHtml(item.typeTitle)}" />
+        <img src="${item.previewDataUrl}" alt="Preview for ${escapeHtml(item.typeTitle)}" />
       </div>
       <div class="history-meta">
         <span class="meta-label">${escapeHtml(item.typeTitle)}</span>
@@ -221,23 +190,14 @@ function createHistoryCard(item) {
 function updateAnalytics() {
   const snapshot = getAnalyticsSnapshot(state.history, getDownloadCount());
   updateAnalyticsView(
-    {
-      generatedEl: dom.statGenerated,
-      downloadsEl: dom.statDownloads,
-      topTypeEl: dom.statTopType,
-      historyEl: dom.statHistory,
-    },
+    { generatedEl: dom.statGenerated, downloadsEl: dom.statDownloads, topTypeEl: dom.statTopType, historyEl: dom.statHistory },
     snapshot,
   );
 }
 
 function updatePreviewMeta(type, summary) {
-  if (dom.previewType) {
-    dom.previewType.textContent = getTypeTitle(type);
-  }
-  if (dom.previewContent) {
-    dom.previewContent.textContent = summary || "—";
-  }
+  if (dom.previewType) dom.previewType.textContent = getTypeTitle(type);
+  if (dom.previewContent) dom.previewContent.textContent = summary || "—";
 }
 
 async function renderPreview({ showSuccess = false } = {}) {
@@ -246,9 +206,7 @@ async function renderPreview({ showSuccess = false } = {}) {
 
   const validation = validateForm(type, data);
   if (!validation.valid) {
-    if (showSuccess) {
-      renderErrors(validation.errors);
-    }
+    if (showSuccess) renderErrors(validation.errors);
     return false;
   }
 
@@ -281,26 +239,15 @@ async function renderPreview({ showSuccess = false } = {}) {
     state.currentSvg = svg;
 
     dom.previewStage?.classList.remove("is-generated");
-    window.requestAnimationFrame(() =>
-      dom.previewStage?.classList.add("is-generated"),
-    );
+    window.requestAnimationFrame(() => dom.previewStage?.classList.add("is-generated"));
     setPreviewPlaceholderVisible(false);
     updatePreviewMeta(type, state.currentSummary);
 
-    if (showSuccess) {
-      showToast(
-        "QR generated",
-        "Your QR code is ready for download and sharing.",
-      );
-    }
+    if (showSuccess) showToast("QR generated", "Your QR code is ready for download and sharing.");
 
     return true;
   } catch (error) {
-    showToast(
-      "Generation failed",
-      error?.message || "Unable to generate the QR code.",
-      "error",
-    );
+    showToast("Generation failed", error?.message || "Unable to generate the QR code.", "error");
     setPreviewPlaceholderVisible(true);
     return false;
   } finally {
@@ -309,18 +256,9 @@ async function renderPreview({ showSuccess = false } = {}) {
 }
 
 function renderErrors(errors) {
-  if (!dom.formErrors) {
-    return;
-  }
-
-  if (!errors.length) {
-    dom.formErrors.innerHTML = "";
-    return;
-  }
-
-  dom.formErrors.innerHTML = errors
-    .map((error) => `<div class="form-error">${escapeHtml(error)}</div>`)
-    .join("");
+  if (!dom.formErrors) return;
+  if (!errors.length) { dom.formErrors.innerHTML = ""; return; }
+  dom.formErrors.innerHTML = errors.map((e) => `<div class="form-error">${escapeHtml(e)}</div>`).join("");
 }
 
 function populateFormFromRecord(record) {
@@ -328,21 +266,14 @@ function populateFormFromRecord(record) {
   renderTypeFields(record.type, record.data);
   Object.entries(record.data || {}).forEach(([name, value]) => {
     const field = dom.generatorForm.elements.namedItem(name);
-    if (field) {
-      field.value = value;
-    }
+    if (field) field.value = value;
   });
-
   Object.entries(record.settings || {}).forEach(([key, value]) => {
-    if (dom[key]) {
-      dom[key].value = value;
-    }
+    if (dom[key]) dom[key].value = value;
   });
   updateMarginLabel();
   state.currentLogoDataUrl = record.logoDataUrl || "";
-  if (dom.logoUpload) {
-    dom.logoUpload.value = "";
-  }
+  if (dom.logoUpload) dom.logoUpload.value = "";
 }
 
 async function generateAndSave({ showSuccess = true } = {}) {
@@ -402,17 +333,11 @@ async function generateAndSave({ showSuccess = true } = {}) {
     state.currentTimestamp = timestamp;
     updatePreviewMeta(type, summary);
     dom.previewStage?.classList.remove("is-generated");
-    window.requestAnimationFrame(() =>
-      dom.previewStage?.classList.add("is-generated"),
-    );
+    window.requestAnimationFrame(() => dom.previewStage?.classList.add("is-generated"));
     showToast("QR generated", "Saved to history and ready to use.");
     return true;
   } catch (error) {
-    showToast(
-      "Generation failed",
-      error?.message || "Could not create the QR code.",
-      "error",
-    );
+    showToast("Generation failed", error?.message || "Could not create the QR code.", "error");
     return false;
   } finally {
     setLoadingVisible(false);
@@ -450,46 +375,21 @@ function bindInputEvents() {
     scheduleLivePreview();
   });
 
-  const previewFields = [
-    dom.generatorForm,
-    dom.qrSize,
-    dom.qrForeground,
-    dom.qrBackground,
-    dom.qrMargin,
-    dom.errorCorrection,
-  ];
+  const previewFields = [dom.generatorForm, dom.qrSize, dom.qrForeground, dom.qrBackground, dom.qrMargin, dom.errorCorrection];
   previewFields.forEach((field) => {
-    field.addEventListener("input", () => {
-      updateMarginLabel();
-      scheduleLivePreview();
-    });
-    field.addEventListener("change", () => {
-      updateMarginLabel();
-      scheduleLivePreview();
-    });
+    field.addEventListener("input", () => { updateMarginLabel(); scheduleLivePreview(); });
+    field.addEventListener("change", () => { updateMarginLabel(); scheduleLivePreview(); });
   });
 
   dom.logoUpload.addEventListener("change", async () => {
     const [file] = dom.logoUpload.files || [];
-    if (!file) {
-      state.currentLogoDataUrl = "";
-      scheduleLivePreview();
-      return;
-    }
-
+    if (!file) { state.currentLogoDataUrl = ""; scheduleLivePreview(); return; }
     try {
       state.currentLogoDataUrl = await readLogoAsDataUrl(file);
-      showToast(
-        "Logo uploaded",
-        "The uploaded logo will appear in the QR center.",
-      );
+      showToast("Logo uploaded", "The uploaded logo will appear in the QR center.");
       scheduleLivePreview();
     } catch (error) {
-      showToast(
-        "Logo upload failed",
-        error?.message || "Unable to read the selected file.",
-        "error",
-      );
+      showToast("Logo upload failed", error?.message || "Unable to read the selected file.", "error");
     }
   });
 }
@@ -497,27 +397,17 @@ function bindInputEvents() {
 let livePreviewTimer = 0;
 function scheduleLivePreview() {
   window.clearTimeout(livePreviewTimer);
-  livePreviewTimer = window.setTimeout(() => {
-    renderPreview({ showSuccess: false });
-  }, 160);
+  livePreviewTimer = window.setTimeout(() => renderPreview({ showSuccess: false }), 160);
 }
 
 function bindHistoryActions() {
   dom.historyGrid.addEventListener("click", async (event) => {
     const button = event.target.closest("button[data-action]");
-    if (!button) {
-      return;
-    }
-
+    if (!button) return;
     const card = button.closest("[data-id]");
-    if (!card) {
-      return;
-    }
-
+    if (!card) return;
     const record = state.history.find((item) => item.id === card.dataset.id);
-    if (!record) {
-      return;
-    }
+    if (!record) return;
 
     const action = button.dataset.action;
     if (action === "regenerate") {
@@ -525,17 +415,12 @@ function bindHistoryActions() {
       await generateAndSave({ showSuccess: true });
       showToast("Regenerated", "The selected history item has been recreated.");
     }
-
     if (action === "download") {
-      await downloadPng(
-        record.previewDataUrl,
-        createDownloadName(record.type, record.timestamp, "png"),
-      );
+      await downloadPng(record.previewDataUrl, createDownloadName(record.type, record.timestamp, "png"));
       incrementDownloadCount();
       updateAnalytics();
       showToast("Downloaded", "Your history QR has been saved as PNG.");
     }
-
     if (action === "delete") {
       const remaining = deleteHistoryItem(record.id);
       state.history = remaining;
@@ -549,52 +434,35 @@ function bindHistoryActions() {
 function bindActionButtons(scannerApi) {
   dom.generatorForm.addEventListener("submit", handleGenerateSubmit);
   dom.resetBtn.addEventListener("click", resetForm);
+
   dom.downloadPngBtn.addEventListener("click", async () => {
-    if (!state.currentDataUrl) {
-      showToast("Nothing to download", "Generate a QR code first.", "error");
-      return;
-    }
-    await downloadPng(
-      state.currentDataUrl,
-      createDownloadName(state.currentType, state.currentTimestamp, "png"),
-    );
+    if (!state.currentDataUrl) { showToast("Nothing to download", "Generate a QR code first.", "error"); return; }
+    await downloadPng(state.currentDataUrl, createDownloadName(state.currentType, state.currentTimestamp, "png"));
     incrementDownloadCount();
     updateAnalytics();
     showToast("Downloaded", "PNG download started.");
   });
+
   dom.downloadSvgBtn.addEventListener("click", async () => {
-    if (!state.currentSvg) {
-      showToast("Nothing to download", "Generate a QR code first.", "error");
-      return;
-    }
-    await downloadSvg(
-      state.currentSvg,
-      createDownloadName(state.currentType, state.currentTimestamp, "svg"),
-    );
+    if (!state.currentSvg) { showToast("Nothing to download", "Generate a QR code first.", "error"); return; }
+    await downloadSvg(state.currentSvg, createDownloadName(state.currentType, state.currentTimestamp, "svg"));
     incrementDownloadCount();
     updateAnalytics();
     showToast("Downloaded", "SVG download started.");
   });
+
   dom.copyContentBtn.addEventListener("click", async () => {
-    if (!state.currentPayload) {
-      showToast("Nothing to copy", "Generate a QR code first.", "error");
-      return;
-    }
+    if (!state.currentPayload) { showToast("Nothing to copy", "Generate a QR code first.", "error"); return; }
     await copyText(state.currentPayload);
     showToast("Copied", "QR content copied to clipboard.");
   });
+
   dom.shareBtn.addEventListener("click", async () => {
-    if (!state.currentPayload || !state.currentDataUrl) {
-      showToast("Nothing to share", "Generate a QR code first.", "error");
-      return;
-    }
-    await shareQr({
-      title: "QR Studio QR Code",
-      text: state.currentPayload,
-      dataUrl: state.currentDataUrl,
-    });
+    if (!state.currentPayload || !state.currentDataUrl) { showToast("Nothing to share", "Generate a QR code first.", "error"); return; }
+    await shareQr({ title: "QR Studio QR Code", text: state.currentPayload, dataUrl: state.currentDataUrl });
     showToast("Shared", "Share flow has been opened or copied.");
   });
+
   dom.clearHistoryBtn.addEventListener("click", () => {
     clearHistoryItems();
     state.history = [];
@@ -604,44 +472,24 @@ function bindActionButtons(scannerApi) {
   });
 
   dom.openLinkBtn.addEventListener("click", () => {
-    if (!state.lastScanText) {
-      return;
-    }
+    if (!state.lastScanText) return;
     window.open(state.lastScanText, "_blank", "noopener,noreferrer");
   });
 
   dom.copyResultBtn.addEventListener("click", async () => {
-    if (!state.lastScanText) {
-      return;
-    }
+    if (!state.lastScanText) return;
     await copyText(state.lastScanText);
     showToast("Copied", "Decoded scan result copied to clipboard.");
   });
 
   document.addEventListener("keydown", async (event) => {
-    if (event.defaultPrevented) {
-      return;
-    }
-
+    if (event.defaultPrevented) return;
     const activeTag = document.activeElement?.tagName?.toLowerCase();
     const inTextArea = activeTag === "textarea";
 
-    if (event.key === "Escape") {
-      resetForm();
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === "d") {
-      event.preventDefault();
-      dom.downloadPngBtn.click();
-      return;
-    }
-
-    if (
-      event.key === "Enter" &&
-      !inTextArea &&
-      !(event.target instanceof HTMLButtonElement)
-    ) {
+    if (event.key === "Escape") { resetForm(); return; }
+    if (event.ctrlKey && event.key.toLowerCase() === "d") { event.preventDefault(); dom.downloadPngBtn.click(); return; }
+    if (event.key === "Enter" && !inTextArea && !(event.target instanceof HTMLButtonElement)) {
       event.preventDefault();
       await generateAndSave();
     }
@@ -656,15 +504,10 @@ function bindActionButtons(scannerApi) {
       state.lastScanText = text;
       dom.copyResultBtn.disabled = false;
       dom.openLinkBtn.disabled = !isUrl(text);
-      dom.openLinkBtn.textContent = isUrl(text) ? "Open Link" : "Open Link";
-      dom.openLinkBtn.disabled = !isUrl(text);
     },
     onStatus: (message, type) => {
-      if (type === "error") {
-        showToast("Scanner error", message, "error");
-      } else if (message) {
-        showToast("Scanner", message, type === "success" ? "success" : "info");
-      }
+      if (type === "error") showToast("Scanner error", message, "error");
+      else if (message) showToast("Scanner", message, type === "success" ? "success" : "info");
     },
   });
 }
@@ -693,10 +536,7 @@ function prepareInitialState() {
 function bindRippleEffects() {
   document.addEventListener("pointerdown", (event) => {
     const target = event.target.closest(".ripple");
-    if (!target) {
-      return;
-    }
-
+    if (!target) return;
     target.classList.remove("is-rippling");
     void target.offsetWidth;
     target.classList.add("is-rippling");
@@ -708,9 +548,7 @@ function bindSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", (event) => {
       const target = document.querySelector(anchor.getAttribute("href"));
-      if (!target) {
-        return;
-      }
+      if (!target) return;
       event.preventDefault();
       target.scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -734,17 +572,12 @@ async function bootstrap() {
   bindInputEvents();
   bindHistoryActions();
   bindActionButtons();
-
   await renderPreview({ showSuccess: false });
   finalizeStartup();
 }
 
 bootstrap().catch((error) => {
   console.error(error);
-  showToast(
-    "App failed to load",
-    error.message || "Unknown startup error",
-    "error",
-  );
+  showToast("App failed to load", error.message || "Unknown startup error", "error");
   finalizeStartup();
 });

@@ -11,32 +11,17 @@ function isLikelyUrl(value) {
 }
 
 function stopButtonState(startButton, stopButton, active) {
-  if (startButton) {
-    startButton.disabled = active;
-  }
-  if (stopButton) {
-    stopButton.disabled = !active;
-  }
+  if (startButton) startButton.disabled = active;
+  if (stopButton) stopButton.disabled = !active;
 }
 
-export function initScanner({
-  regionId,
-  startButton,
-  stopButton,
-  resultElement,
-  onDecoded,
-  onStatus,
-}) {
+export function initScanner({ regionId, startButton, stopButton, resultElement, onDecoded, onStatus }) {
   const setStatus = (message, type = "info") => {
-    if (typeof onStatus === "function") {
-      onStatus(message, type);
-    }
+    if (typeof onStatus === "function") onStatus(message, type);
   };
 
   const renderResult = (text) => {
-    if (!resultElement) {
-      return;
-    }
+    if (!resultElement) return;
 
     const linkMarkup = isLikelyUrl(text)
       ? `<a href="${escapeHtml(text)}" target="_blank" rel="noreferrer">${escapeHtml(text)}</a>`
@@ -51,21 +36,15 @@ export function initScanner({
   };
 
   async function stopScanner() {
-    if (!scannerInstance || !scannerActive) {
-      return;
-    }
+    if (!scannerInstance || !scannerActive) return;
 
     try {
       await scannerInstance.stop();
-    } catch {
-      // Ignore stop errors caused by the stream ending while stopping.
-    }
+    } catch {}
 
     try {
       await scannerInstance.clear();
-    } catch {
-      // Ignore clear errors for browsers that already released the stream.
-    }
+    } catch {}
 
     scannerActive = false;
     stopButtonState(startButton, stopButton, false);
@@ -78,9 +57,7 @@ export function initScanner({
       return;
     }
 
-    if (scannerActive) {
-      return;
-    }
+    if (scannerActive) return;
 
     scannerInstance = new window.Html5Qrcode(regionId);
     stopButtonState(startButton, stopButton, true);
@@ -89,32 +66,21 @@ export function initScanner({
       scannerActive = true;
       await scannerInstance.start(
         { facingMode: "environment" },
-        {
-          fps: 10,
-          qrbox: { width: 240, height: 240 },
-          aspectRatio: 1,
-        },
+        { fps: 10, qrbox: { width: 240, height: 240 }, aspectRatio: 1 },
         async (decodedText) => {
           await stopScanner();
           renderResult(decodedText);
-          if (typeof onDecoded === "function") {
-            onDecoded(decodedText);
-          }
+          if (typeof onDecoded === "function") onDecoded(decodedText);
           setStatus("QR code decoded successfully.", "success");
         },
-        () => {
-          // Ignore decode noise; successful scans are handled above.
-        },
+        () => {},
       );
 
       setStatus("Scanner started. Point your camera at a QR code.", "success");
     } catch (error) {
       scannerActive = false;
       stopButtonState(startButton, stopButton, false);
-      setStatus(
-        error?.message || "Camera access was denied or unavailable.",
-        "error",
-      );
+      setStatus(error?.message || "Camera access was denied or unavailable.", "error");
     }
   }
 

@@ -78,9 +78,7 @@ export function getHistoryStats() {
   }, {});
 
   const mostUsedType =
-    Object.entries(typeCounts).sort(
-      (left, right) => right[1] - left[1],
-    )[0]?.[0] || "—";
+    Object.entries(typeCounts).sort((left, right) => right[1] - left[1])[0]?.[0] || "—";
 
   return {
     totalHistory: items.length,

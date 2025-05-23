@@ -12,8 +12,7 @@ function getPreferredTheme() {
     return stored;
   }
 
-  return window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";
 }
@@ -28,8 +27,7 @@ function applyTheme(theme) {
     const icon = toggle.querySelector("i");
     toggle.setAttribute("aria-pressed", String(theme === "dark"));
     if (icon) {
-      icon.className =
-        theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+      icon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
     }
   }
 }
@@ -43,14 +41,10 @@ export function initTheme() {
   }
 
   toggle.addEventListener("click", () => {
-    const nextTheme =
-      document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.body.classList.add("theme-transition");
     applyTheme(nextTheme);
-    window.setTimeout(
-      () => document.body.classList.remove("theme-transition"),
-      180,
-    );
+    window.setTimeout(() => document.body.classList.remove("theme-transition"), 180);
   });
 }
 

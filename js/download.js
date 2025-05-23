@@ -55,16 +55,10 @@ export async function shareQr({ title, text, dataUrl }) {
   try {
     const response = await fetch(dataUrl);
     const blob = await response.blob();
-    const file = new File([blob], `${sanitizeFileName(title)}.png`, {
-      type: "image/png",
-    });
+    const file = new File([blob], `${sanitizeFileName(title)}.png`, { type: "image/png" });
 
     if (navigator.canShare?.({ files: [file] })) {
-      await navigator.share({
-        title,
-        text,
-        files: [file],
-      });
+      await navigator.share({ title, text, files: [file] });
       return { shared: true };
     }
 
@@ -77,8 +71,6 @@ export async function shareQr({ title, text, dataUrl }) {
 }
 
 export function createDownloadName(type, timestamp, extension) {
-  const date = new Date(timestamp || Date.now())
-    .toISOString()
-    .replace(/[:.]/g, "-");
+  const date = new Date(timestamp || Date.now()).toISOString().replace(/[:.]/g, "-");
   return `${sanitizeFileName(`qr-studio-${type}-${date}`)}.${extension}`;
 }

@@ -10,9 +10,7 @@ function countTypes(items) {
 export function getAnalyticsSnapshot(historyItems = [], downloadCount = 0) {
   const typeCounts = countTypes(historyItems);
   const mostUsedType =
-    Object.entries(typeCounts).sort(
-      (left, right) => right[1] - left[1],
-    )[0]?.[0] || "—";
+    Object.entries(typeCounts).sort((left, right) => right[1] - left[1])[0]?.[0] || "—";
   const stats = getHistoryStats();
 
   return {
@@ -23,22 +21,11 @@ export function getAnalyticsSnapshot(historyItems = [], downloadCount = 0) {
   };
 }
 
-export function updateAnalyticsView(
-  { generatedEl, downloadsEl, topTypeEl, historyEl },
-  snapshot,
-) {
-  if (generatedEl) {
-    generatedEl.textContent = String(snapshot.totalGenerated);
-  }
-  if (downloadsEl) {
-    downloadsEl.textContent = String(snapshot.totalDownloads);
-  }
-  if (topTypeEl) {
-    topTypeEl.textContent = formatTypeName(snapshot.mostUsedType);
-  }
-  if (historyEl) {
-    historyEl.textContent = String(snapshot.totalHistory);
-  }
+export function updateAnalyticsView({ generatedEl, downloadsEl, topTypeEl, historyEl }, snapshot) {
+  if (generatedEl) generatedEl.textContent = String(snapshot.totalGenerated);
+  if (downloadsEl) downloadsEl.textContent = String(snapshot.totalDownloads);
+  if (topTypeEl) topTypeEl.textContent = formatTypeName(snapshot.mostUsedType);
+  if (historyEl) historyEl.textContent = String(snapshot.totalHistory);
 }
 
 export function formatTypeName(type) {

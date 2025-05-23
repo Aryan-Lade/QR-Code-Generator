@@ -3,50 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="QR Studio is a premium QR code generator and scanner web app built with vanilla JavaScript."
-    />
-    <title>QR Studio</title>
+    <meta name="description" content="QR Studio — premium QR code generator and scanner with live customization, history, and webcam scanning." />
+    <title>QR Studio — Premium QR Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body class="app-shell">
+
     <div class="ambient ambient-one"></div>
     <div class="ambient ambient-two"></div>
     <div class="ambient ambient-three"></div>
 
-    <div
-      id="loadingOverlay"
-      class="loading-overlay"
-      role="status"
-      aria-live="polite"
-      aria-label="Loading QR Studio"
-    >
-      <div class="loading-card glass-panel">
+    <div id="loadingOverlay" class="loading-overlay" role="status" aria-live="polite" aria-label="Loading QR Studio">
+      <div class="loading-card">
         <div class="loading-ring"></div>
-        <p>Loading QR Studio...</p>
+        <p>Loading QR Studio…</p>
       </div>
     </div>
 
-    <header class="topbar glass-panel">
+    <header class="topbar">
       <div class="container nav-inner">
         <a class="brand" href="#home" aria-label="QR Studio home">
           <span class="brand-mark"><i class="fa-solid fa-qrcode"></i></span>
           <span class="brand-text">
             <strong>QR Studio</strong>
-            <small>Premium QR Generator</small>
+            <small>Premium Generator</small>
           </span>
         </a>
 
@@ -58,13 +42,7 @@
         </nav>
 
         <div class="nav-actions">
-          <button
-            id="themeToggle"
-            class="icon-btn theme-toggle"
-            type="button"
-            aria-label="Toggle dark and light theme"
-            aria-pressed="false"
-          >
+          <button id="themeToggle" class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
             <i class="fa-solid fa-moon"></i>
           </button>
         </div>
@@ -72,45 +50,35 @@
     </header>
 
     <main id="home">
+
       <section class="hero section reveal">
         <div class="container hero-grid">
           <div class="hero-copy">
-            <span class="eyebrow"
-              ><i class="fa-solid fa-sparkles"></i> Smart QR generation and
-              scanning</span
-            >
-            <h1>Design and generate premium QR codes in seconds.</h1>
+            <span class="eyebrow"><i class="fa-solid fa-bolt"></i> Next-gen QR generation &amp; scanning</span>
+            <h1>Create stunning QR codes in seconds.</h1>
             <p class="hero-lead">
-              QR Studio blends a polished SaaS dashboard, live customization,
-              secure history storage, and webcam scanning into one elegant
-              experience.
+              QR Studio combines live customization, persistent history, webcam scanning, and PNG/SVG export — all in one elegant, zero-backend experience.
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary ripple" href="#generator"
-                ><i class="fa-solid fa-wand-magic-sparkles"></i> Generate QR
-                Code</a
-              >
-              <a class="btn btn-secondary ripple" href="#scanner"
-                ><i class="fa-solid fa-camera"></i> Scan QR Code</a
-              >
+              <a class="btn btn-primary ripple" href="#generator">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate QR Code
+              </a>
+              <a class="btn btn-secondary ripple" href="#scanner">
+                <i class="fa-solid fa-camera"></i> Scan QR Code
+              </a>
             </div>
             <div class="hero-badges" aria-label="Highlights">
-              <span
-                ><i class="fa-solid fa-shield-heart"></i> Theme
-                persistence</span
-              >
-              <span><i class="fa-solid fa-bolt"></i> Live preview</span>
-              <span
-                ><i class="fa-solid fa-cloud-arrow-down"></i> PNG and SVG
-                export</span
-              >
+              <span><i class="fa-solid fa-shield-heart"></i> Theme persistence</span>
+              <span><i class="fa-solid fa-eye"></i> Live preview</span>
+              <span><i class="fa-solid fa-cloud-arrow-down"></i> PNG &amp; SVG export</span>
+              <span><i class="fa-solid fa-lock"></i> 100% local</span>
             </div>
           </div>
 
-          <div class="hero-visual glass-panel">
+          <div class="hero-visual">
             <div class="hero-visual-header">
               <span class="status-dot"></span>
-              <span>QR Studio Live Preview</span>
+              <span>QR Studio — Live Preview</span>
             </div>
             <div class="hero-qr-art" aria-hidden="true">
               <div class="art-finder top-left"></div>
@@ -126,7 +94,7 @@
             <div class="hero-visual-footer">
               <div>
                 <strong>Live Customization</strong>
-                <small>Colors, size, logo, and margin controls</small>
+                <small>Colors, size, logo &amp; margin controls</small>
               </div>
               <div class="mini-progress" aria-hidden="true"><span></span></div>
             </div>
@@ -137,35 +105,31 @@
       <section class="section stats-section reveal">
         <div class="container">
           <div class="section-heading">
-            <span class="eyebrow">Analytics dashboard</span>
-            <h2>Track generation activity at a glance.</h2>
+            <div>
+              <span class="eyebrow"><i class="fa-solid fa-chart-line"></i> Analytics</span>
+              <h2>Track your generation activity.</h2>
+            </div>
           </div>
           <div class="stats-grid" id="analyticsGrid" aria-live="polite">
-            <article class="stat-card glass-panel">
+            <article class="stat-card">
               <span class="stat-icon"><i class="fa-solid fa-qrcode"></i></span>
               <strong id="statGenerated">0</strong>
               <span>Total QR Codes Generated</span>
             </article>
-            <article class="stat-card glass-panel">
-              <span class="stat-icon"
-                ><i class="fa-solid fa-download"></i
-              ></span>
+            <article class="stat-card">
+              <span class="stat-icon"><i class="fa-solid fa-download"></i></span>
               <strong id="statDownloads">0</strong>
               <span>Total Downloads</span>
             </article>
-            <article class="stat-card glass-panel">
-              <span class="stat-icon"
-                ><i class="fa-solid fa-chart-pie"></i
-              ></span>
+            <article class="stat-card">
+              <span class="stat-icon"><i class="fa-solid fa-fire"></i></span>
               <strong id="statTopType">—</strong>
               <span>Most Used QR Type</span>
             </article>
-            <article class="stat-card glass-panel">
-              <span class="stat-icon"
-                ><i class="fa-solid fa-clock-rotate-left"></i
-              ></span>
+            <article class="stat-card">
+              <span class="stat-icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
               <strong id="statHistory">0</strong>
-              <span>Total History Items</span>
+              <span>History Items Saved</span>
             </article>
           </div>
         </div>
@@ -173,9 +137,9 @@
 
       <section id="generator" class="section generator-section reveal">
         <div class="container generator-grid">
-          <div class="generator-panel glass-panel">
+          <div class="generator-panel">
             <div class="section-heading compact">
-              <span class="eyebrow">QR Generator</span>
+              <span class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> QR Generator</span>
               <h2>Build a QR code with advanced customization.</h2>
             </div>
 
@@ -194,50 +158,31 @@
                 </select>
               </div>
 
-              <div
-                id="dynamicFields"
-                class="dynamic-fields"
-                aria-live="polite"
-              ></div>
+              <div id="dynamicFields" class="dynamic-fields" aria-live="polite"></div>
 
               <div class="panel-subtitle">
                 <h3>Customization</h3>
-                <p>
-                  Fine-tune appearance and error resilience for every QR you
-                  create.
-                </p>
+                <p>Fine-tune appearance and error resilience.</p>
               </div>
 
               <div class="custom-grid">
                 <div class="field-group">
                   <label for="qrSize">QR Size</label>
                   <select id="qrSize" class="input">
-                    <option value="128">128px</option>
-                    <option value="256" selected>256px</option>
-                    <option value="512">512px</option>
+                    <option value="128">128 px</option>
+                    <option value="256" selected>256 px</option>
+                    <option value="512">512 px</option>
                   </select>
                 </div>
 
                 <div class="field-group">
                   <label for="qrForeground">QR Color</label>
-                  <input
-                    id="qrForeground"
-                    class="input color-input"
-                    type="color"
-                    value="#0f766e"
-                    aria-label="QR foreground color"
-                  />
+                  <input id="qrForeground" class="input color-input" type="color" value="#7c6af7" aria-label="QR foreground color" />
                 </div>
 
                 <div class="field-group">
                   <label for="qrBackground">Background Color</label>
-                  <input
-                    id="qrBackground"
-                    class="input color-input"
-                    type="color"
-                    value="#ffffff"
-                    aria-label="QR background color"
-                  />
+                  <input id="qrBackground" class="input color-input" type="color" value="#ffffff" aria-label="QR background color" />
                 </div>
 
                 <div class="field-group range-group">
@@ -245,94 +190,54 @@
                     <label for="qrMargin">Margin Size</label>
                     <span id="qrMarginValue">2</span>
                   </div>
-                  <input
-                    id="qrMargin"
-                    class="range-input"
-                    type="range"
-                    min="0"
-                    max="10"
-                    step="1"
-                    value="2"
-                  />
+                  <input id="qrMargin" class="range-input" type="range" min="0" max="10" step="1" value="2" />
                 </div>
 
                 <div class="field-group">
                   <label for="errorCorrection">Error Correction</label>
                   <select id="errorCorrection" class="input">
-                    <option value="L">L</option>
-                    <option value="M" selected>M</option>
-                    <option value="Q">Q</option>
-                    <option value="H">H</option>
+                    <option value="L">L — Low</option>
+                    <option value="M" selected>M — Medium</option>
+                    <option value="Q">Q — Quartile</option>
+                    <option value="H">H — High</option>
                   </select>
                 </div>
 
                 <div class="field-group upload-group">
-                  <label for="logoUpload">Optional Logo Upload</label>
-                  <input
-                    id="logoUpload"
-                    class="file-input"
-                    type="file"
-                    accept="image/*"
-                  />
-                  <p class="helper-text">
-                    A logo will be centered in the QR with a protective white
-                    plate.
-                  </p>
+                  <label for="logoUpload">Optional Logo</label>
+                  <input id="logoUpload" class="file-input" type="file" accept="image/*" />
+                  <p class="helper-text">Logo will be centered inside the QR with a white plate.</p>
                 </div>
               </div>
 
-              <div
-                id="formErrors"
-                class="form-errors"
-                role="alert"
-                aria-live="assertive"
-              ></div>
+              <div id="formErrors" class="form-errors" role="alert" aria-live="assertive"></div>
 
               <div class="action-row">
-                <button
-                  id="generateBtn"
-                  class="btn btn-primary ripple"
-                  type="submit"
-                >
-                  <i class="fa-solid fa-bolt"></i>
-                  Generate QR Code
+                <button id="generateBtn" class="btn btn-primary ripple" type="submit">
+                  <i class="fa-solid fa-bolt"></i> Generate QR Code
                 </button>
-                <button
-                  id="resetBtn"
-                  class="btn btn-ghost ripple"
-                  type="button"
-                >
-                  <i class="fa-solid fa-eraser"></i>
-                  Clear Form
+                <button id="resetBtn" class="btn btn-ghost ripple" type="button">
+                  <i class="fa-solid fa-eraser"></i> Clear Form
                 </button>
               </div>
             </form>
           </div>
 
-          <aside class="preview-panel glass-panel" aria-label="QR preview card">
+          <aside class="preview-panel" aria-label="QR preview">
             <div class="section-heading compact">
-              <span class="eyebrow">Preview</span>
-              <h2>Refined output, ready to download.</h2>
+              <span class="eyebrow"><i class="fa-solid fa-eye"></i> Preview</span>
+              <h2>Polished output, ready to export.</h2>
             </div>
 
             <div class="preview-card">
               <div id="previewStage" class="preview-stage">
-                <canvas
-                  id="qrCanvas"
-                  width="256"
-                  height="256"
-                  aria-label="Generated QR preview"
-                ></canvas>
+                <canvas id="qrCanvas" width="256" height="256" aria-label="Generated QR preview"></canvas>
                 <div id="previewPlaceholder" class="preview-placeholder">
                   <i class="fa-solid fa-qrcode"></i>
-                  <strong>Generate a QR to preview it here</strong>
-                  <span>All style changes update live.</span>
+                  <strong>Your QR will appear here</strong>
+                  <span>All changes update live.</span>
                 </div>
-                <div
-                  id="previewLoading"
-                  class="preview-loading"
-                  aria-hidden="true"
-                >
+                <div id="previewLoading" class="preview-loading" aria-hidden="true">
                   <span class="loading-ring small"></span>
                 </div>
               </div>
@@ -350,26 +255,14 @@
             </div>
 
             <div class="preview-actions" id="previewActions">
-              <button
-                id="downloadPngBtn"
-                class="btn btn-secondary ripple"
-                type="button"
-              >
+              <button id="downloadPngBtn" class="btn btn-secondary ripple" type="button">
                 <i class="fa-solid fa-image"></i> Download PNG
               </button>
-              <button
-                id="downloadSvgBtn"
-                class="btn btn-secondary ripple"
-                type="button"
-              >
+              <button id="downloadSvgBtn" class="btn btn-secondary ripple" type="button">
                 <i class="fa-solid fa-file-code"></i> Download SVG
               </button>
-              <button
-                id="copyContentBtn"
-                class="btn btn-ghost ripple"
-                type="button"
-              >
-                <i class="fa-solid fa-copy"></i> Copy QR Content
+              <button id="copyContentBtn" class="btn btn-ghost ripple" type="button">
+                <i class="fa-solid fa-copy"></i> Copy Content
               </button>
               <button id="shareBtn" class="btn btn-ghost ripple" type="button">
                 <i class="fa-solid fa-share-nodes"></i> Share QR
@@ -383,14 +276,10 @@
         <div class="container">
           <div class="section-heading history-heading">
             <div>
-              <span class="eyebrow">History</span>
-              <h2>Every generated QR stays at your fingertips.</h2>
+              <span class="eyebrow"><i class="fa-solid fa-clock-rotate-left"></i> History</span>
+              <h2>Every QR code stays at your fingertips.</h2>
             </div>
-            <button
-              id="clearHistoryBtn"
-              class="btn btn-ghost ripple"
-              type="button"
-            >
+            <button id="clearHistoryBtn" class="btn btn-ghost ripple" type="button">
               <i class="fa-solid fa-trash-can"></i> Clear History
             </button>
           </div>
@@ -400,62 +289,37 @@
 
       <section id="scanner" class="section scanner-section reveal">
         <div class="container scanner-grid">
-          <div class="scanner-panel glass-panel">
+          <div class="scanner-panel">
             <div class="section-heading compact">
-              <span class="eyebrow">QR Scanner</span>
+              <span class="eyebrow"><i class="fa-solid fa-camera"></i> QR Scanner</span>
               <h2>Decode QR codes using your webcam.</h2>
             </div>
             <div class="scanner-shell">
-              <div
-                id="qrScanner"
-                class="scanner-view"
-                aria-label="QR code scanner preview"
-              ></div>
+              <div id="qrScanner" class="scanner-view" aria-label="QR code scanner preview"></div>
               <div class="scanner-controls">
-                <button
-                  id="startScanBtn"
-                  class="btn btn-primary ripple"
-                  type="button"
-                >
+                <button id="startScanBtn" class="btn btn-primary ripple" type="button">
                   <i class="fa-solid fa-camera"></i> Start Scanner
                 </button>
-                <button
-                  id="stopScanBtn"
-                  class="btn btn-ghost ripple"
-                  type="button"
-                  disabled
-                >
+                <button id="stopScanBtn" class="btn btn-ghost ripple" type="button" disabled>
                   <i class="fa-solid fa-circle-stop"></i> Stop Scanner
                 </button>
               </div>
             </div>
           </div>
 
-          <div class="scanner-result glass-panel">
+          <div class="scanner-result">
             <div class="section-heading compact">
-              <span class="eyebrow">Decoded Content</span>
+              <span class="eyebrow"><i class="fa-solid fa-file-lines"></i> Decoded Content</span>
               <h2>Instantly review, open, or copy the result.</h2>
             </div>
             <div id="scanResult" class="result-card">
-              <p class="empty-state">
-                No scan result yet. Start the scanner and point it at a QR code.
-              </p>
+              <p class="empty-state">No scan result yet. Start the scanner and point it at a QR code.</p>
             </div>
             <div class="result-actions">
-              <button
-                id="openLinkBtn"
-                class="btn btn-secondary ripple"
-                type="button"
-                disabled
-              >
+              <button id="openLinkBtn" class="btn btn-secondary ripple" type="button" disabled>
                 <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Link
               </button>
-              <button
-                id="copyResultBtn"
-                class="btn btn-ghost ripple"
-                type="button"
-                disabled
-              >
+              <button id="copyResultBtn" class="btn btn-ghost ripple" type="button" disabled>
                 <i class="fa-solid fa-copy"></i> Copy Result
               </button>
             </div>
@@ -466,115 +330,83 @@
       <section id="features" class="section features-section reveal">
         <div class="container">
           <div class="section-heading">
-            <span class="eyebrow">Features</span>
-            <h2>Built to feel polished, fast, and professional.</h2>
+            <div>
+              <span class="eyebrow"><i class="fa-solid fa-stars"></i> Features</span>
+              <h2>Built to feel fast, polished, and professional.</h2>
+            </div>
           </div>
           <div class="features-grid">
-            <article class="feature-card glass-panel">
+            <article class="feature-card">
               <i class="fa-solid fa-wand-magic-sparkles"></i>
               <h3>Live Customization</h3>
-              <p>
-                Adjust QR size, colors, margins, and error correction with
-                instant visual feedback.
-              </p>
+              <p>Adjust QR size, colors, margins, and error correction with instant visual feedback.</p>
             </article>
-            <article class="feature-card glass-panel">
+            <article class="feature-card">
               <i class="fa-solid fa-clock-rotate-left"></i>
               <h3>Persistent History</h3>
-              <p>
-                Saved QR codes remain available with regenerate, download, and
-                delete actions.
-              </p>
+              <p>Saved QR codes remain available across sessions with regenerate, download, and delete actions.</p>
             </article>
-            <article class="feature-card glass-panel">
+            <article class="feature-card">
               <i class="fa-solid fa-camera-retro"></i>
               <h3>Webcam Scanner</h3>
-              <p>
-                Decode QR content directly from your camera and act on links
-                immediately.
-              </p>
+              <p>Decode QR content directly from your camera and act on links immediately.</p>
             </article>
-            <article class="feature-card glass-panel">
+            <article class="feature-card">
               <i class="fa-solid fa-universal-access"></i>
               <h3>Accessible by Design</h3>
-              <p>
-                Clear focus states, semantic structure, keyboard shortcuts, and
-                readable contrast.
-              </p>
+              <p>Semantic structure, keyboard shortcuts, clear focus states, and WCAG-compliant contrast.</p>
             </article>
           </div>
         </div>
       </section>
 
       <section id="about" class="section about-section reveal">
-        <div class="container about-card glass-panel">
-          <div>
-            <span class="eyebrow">About QR Studio</span>
-            <h2>A showcase-ready QR tool with a commercial SaaS aesthetic.</h2>
-            <p>
-              QR Studio combines a refined interface, modular vanilla JavaScript
-              architecture, local persistence, and subtle motion to create a
-              premium product experience without a backend.
-            </p>
-          </div>
-          <div class="about-points">
-            <span><i class="fa-solid fa-code"></i> Vanilla JavaScript</span>
-            <span
-              ><i class="fa-solid fa-layer-group"></i> Modular structure</span
-            >
-            <span
-              ><i class="fa-solid fa-mobile-screen-button"></i> Fully
-              responsive</span
-            >
+        <div class="container">
+          <div class="about-card">
+            <div>
+              <span class="eyebrow"><i class="fa-solid fa-circle-info"></i> About QR Studio</span>
+              <h2>A showcase-ready QR tool with a commercial SaaS aesthetic.</h2>
+              <p>QR Studio combines a refined interface, modular vanilla JavaScript architecture, local persistence, and subtle motion to create a premium product experience — entirely without a backend.</p>
+            </div>
+            <div class="about-points">
+              <span><i class="fa-solid fa-code"></i> Vanilla JavaScript</span>
+              <span><i class="fa-solid fa-layer-group"></i> Modular architecture</span>
+              <span><i class="fa-solid fa-mobile-screen-button"></i> Fully responsive</span>
+            </div>
           </div>
         </div>
       </section>
+
     </main>
 
-    <footer class="footer glass-panel">
+    <footer class="footer">
       <div class="container footer-grid">
         <div>
           <strong>QR Studio</strong>
-          <p>
-            Premium QR code generation, scanning, and analytics for modern
-            workflows.
-          </p>
+          <p>Premium QR code generation, scanning, and analytics for modern workflows.</p>
         </div>
         <div>
-          <strong>Features</strong>
+          <strong>Product</strong>
           <a href="#generator">Generator</a>
           <a href="#history">History</a>
           <a href="#scanner">Scanner</a>
         </div>
         <div>
           <strong>Links</strong>
-          <a href="https://github.com" target="_blank" rel="noreferrer"
-            >GitHub</a
-          >
+          <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
           <a href="mailto:hello@qrstudio.app">Contact</a>
         </div>
         <div>
-          <strong>About</strong>
-          <p>
-            &copy; <span id="copyrightYear"></span> QR Studio. All rights
-            reserved.
-          </p>
+          <strong>Legal</strong>
+          <p>&copy; <span id="copyrightYear"></span> QR Studio. All rights reserved.</p>
         </div>
       </div>
     </footer>
 
-    <div
-      id="toastContainer"
-      class="toast-stack"
-      aria-live="polite"
-      aria-atomic="true"
-    ></div>
+    <div id="toastContainer" class="toast-stack" aria-live="polite" aria-atomic="true"></div>
 
     <script src="js/vendor/qrcode.bundle.js"></script>
-    <script
-      src="https://unpkg.com/html5-qrcode"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://unpkg.com/html5-qrcode" crossorigin="anonymous"></script>
     <script type="module" src="js/app.js"></script>
   </body>
 </html>
