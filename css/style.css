@@ -777,6 +777,26 @@ body::after {
   transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
 }
 
+select.input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238892b0' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+select.input option {
+  background: #0d1224;
+  color: #f0f4ff;
+}
+
+[data-theme='light'] select.input option {
+  background: #ffffff;
+  color: #0d0f1e;
+}
+
 textarea.input { min-height: 110px; padding: 14px 16px; resize: vertical; line-height: 1.6; }
 
 .input:focus, textarea.input:focus {
