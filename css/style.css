@@ -411,8 +411,8 @@ body::after {
   padding-top: 40px;
   padding-bottom: 80px;
   min-height: calc(100vh - 110px);
-  display: flex;
-  align-items: center;
+  display: grid;
+  align-content: center;
 }
 
 .hero-grid {
@@ -439,6 +439,9 @@ body::after {
   text-transform: uppercase;
   color: var(--primary);
   width: fit-content;
+}
+
+.hero-copy .eyebrow {
   margin-bottom: 22px;
 }
 
@@ -641,7 +644,15 @@ body::after {
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 24px;
-  gap: 4px;
+  gap: 8px;
+}
+
+.section-heading.compact .eyebrow {
+  margin-bottom: 0;
+}
+
+.section-heading.compact h2 {
+  margin-top: 0;
 }
 
 .section-heading h2,
@@ -663,6 +674,8 @@ body::after {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+.section-heading > div { display: flex; flex-direction: column; gap: 0; }
 
 .stats-section { padding: 60px 0; }
 
@@ -944,10 +957,13 @@ textarea.input { min-height: 110px; padding: 14px 16px; resize: vertical; line-h
 .preview-placeholder, .preview-loading {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   gap: 10px;
+  padding: 24px;
 }
 
 .preview-placeholder i { font-size: 3rem; color: var(--primary); opacity: 0.6; }
@@ -960,6 +976,8 @@ textarea.input { min-height: 110px; padding: 14px 16px; resize: vertical; line-h
   pointer-events: none;
   transition: opacity 200ms ease;
   border-radius: var(--radius-md);
+  flex-direction: row;
+  justify-content: center;
 }
 
 .preview-loading.is-visible { opacity: 1; pointer-events: auto; }
@@ -990,6 +1008,8 @@ textarea.input { min-height: 110px; padding: 14px 16px; resize: vertical; line-h
 .history-section { padding: 60px 0; }
 
 .history-heading { align-items: center; }
+
+.history-heading > div { gap: 6px; }
 
 .history-grid {
   display: grid;
@@ -1042,6 +1062,7 @@ textarea.input { min-height: 110px; padding: 14px 16px; resize: vertical; line-h
 
 .scanner-panel, .scanner-result {
   border-radius: var(--radius-xl);
+  padding: 32px;
   background: var(--surface);
   border: 1px solid var(--border);
   backdrop-filter: blur(20px);
@@ -1059,9 +1080,15 @@ textarea.input { min-height: 110px; padding: 14px 16px; resize: vertical; line-h
   position: relative;
 }
 
+.scanner-result {
+  display: flex;
+  flex-direction: column;
+}
+
 .result-card {
-  min-height: 200px;
+  min-height: 180px;
   margin-bottom: 16px;
+  flex: 1;
 }
 
 .empty-state {
