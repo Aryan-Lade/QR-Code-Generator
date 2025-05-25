@@ -20,8 +20,6 @@ const state = {
   currentSvg: "",
   currentDataUrl: "",
   currentTimestamp: Date.now(),
-  currentLogoDataUrl: "",
-  currentSettings: { ...DEFAULT_SETTINGS },
   history: [],
   lastScanText: "",
 };
@@ -34,13 +32,8 @@ function cacheDom() {
   dom.generatorForm = document.getElementById("generatorForm");
   dom.qrType = document.getElementById("qrType");
   dom.dynamicFields = document.getElementById("dynamicFields");
-  dom.qrSize = document.getElementById("qrSize");
   dom.qrForeground = document.getElementById("qrForeground");
   dom.qrBackground = document.getElementById("qrBackground");
-  dom.qrMargin = document.getElementById("qrMargin");
-  dom.qrMarginValue = document.getElementById("qrMarginValue");
-  dom.errorCorrection = document.getElementById("errorCorrection");
-  dom.logoUpload = document.getElementById("logoUpload");
   dom.formErrors = document.getElementById("formErrors");
   dom.generateBtn = document.getElementById("generateBtn");
   dom.resetBtn = document.getElementById("resetBtn");
@@ -117,27 +110,13 @@ function setPreviewPlaceholderVisible(visible) {
   if (dom.qrCanvas) dom.qrCanvas.style.opacity = visible ? "0" : "1";
 }
 
-function updateMarginLabel() {
-  if (dom.qrMarginValue && dom.qrMargin) dom.qrMarginValue.textContent = dom.qrMargin.value;
-}
-
-function readLogoAsDataUrl(file) {
-  if (!file) return Promise.resolve("");
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result || ""));
-    reader.onerror = () => reject(new Error("Could not read logo file."));
-    reader.readAsDataURL(file);
-  });
-}
-
 function collectSettings() {
   return {
-    size: Number(dom.qrSize.value),
+    size: DEFAULT_SETTINGS.size,
     foreground: dom.qrForeground.value,
     background: dom.qrBackground.value,
-    margin: Number(dom.qrMargin.value),
-    errorCorrectionLevel: dom.errorCorrection.value,
+    margin: DEFAULT_SETTINGS.margin,
+    errorCorrectionLevel: DEFAULT_SETTINGS.errorCorrectionLevel,
   };
 }
 
@@ -232,7 +211,6 @@ async function renderPreview({ showSuccess = false } = {}) {
       errorCorrectionLevel: settings.errorCorrectionLevel,
       foreground: settings.foreground,
       background: settings.background,
-      logoDataUrl: state.currentLogoDataUrl,
     });
 
     state.currentDataUrl = dataUrl;
@@ -268,12 +246,8 @@ function populateFormFromRecord(record) {
     const field = dom.generatorForm.elements.namedItem(name);
     if (field) field.value = value;
   });
-  Object.entries(record.settings || {}).forEach(([key, value]) => {
-    if (dom[key]) dom[key].value = value;
-  });
-  updateMarginLabel();
-  state.currentLogoDataUrl = record.logoDataUrl || "";
-  if (dom.logoUpload) dom.logoUpload.value = "";
+  if (record.settings?.foreground) dom.qrForeground.value = record.settings.foreground;
+  if (record.settings?.background) dom.qrBackground.value = record.settings.background;
 }
 
 async function generateAndSave({ showSuccess = true } = {}) {
@@ -346,14 +320,8 @@ async function generateAndSave({ showSuccess = true } = {}) {
 
 function resetForm() {
   dom.qrType.value = "website";
-  dom.qrSize.value = DEFAULT_SETTINGS.size;
   dom.qrForeground.value = DEFAULT_SETTINGS.foreground;
   dom.qrBackground.value = DEFAULT_SETTINGS.background;
-  dom.qrMargin.value = DEFAULT_SETTINGS.margin;
-  dom.errorCorrection.value = DEFAULT_SETTINGS.errorCorrectionLevel;
-  dom.logoUpload.value = "";
-  state.currentLogoDataUrl = "";
-  updateMarginLabel();
   renderTypeFields("website", getDefaultFieldValues("website"));
   renderErrors([]);
   setPreviewPlaceholderVisible(true);
@@ -375,22 +343,10 @@ function bindInputEvents() {
     scheduleLivePreview();
   });
 
-  const previewFields = [dom.generatorForm, dom.qrSize, dom.qrForeground, dom.qrBackground, dom.qrMargin, dom.errorCorrection];
+  const previewFields = [dom.generatorForm, dom.qrForeground, dom.qrBackground];
   previewFields.forEach((field) => {
-    field.addEventListener("input", () => { updateMarginLabel(); scheduleLivePreview(); });
-    field.addEventListener("change", () => { updateMarginLabel(); scheduleLivePreview(); });
-  });
-
-  dom.logoUpload.addEventListener("change", async () => {
-    const [file] = dom.logoUpload.files || [];
-    if (!file) { state.currentLogoDataUrl = ""; scheduleLivePreview(); return; }
-    try {
-      state.currentLogoDataUrl = await readLogoAsDataUrl(file);
-      showToast("Logo uploaded", "The uploaded logo will appear in the QR center.");
-      scheduleLivePreview();
-    } catch (error) {
-      showToast("Logo upload failed", error?.message || "Unable to read the selected file.", "error");
-    }
+    field.addEventListener("input", () => scheduleLivePreview());
+    field.addEventListener("change", () => scheduleLivePreview());
   });
 }
 
@@ -524,7 +480,6 @@ function isUrl(value) {
 function prepareInitialState() {
   dom.copyrightYear.textContent = String(new Date().getFullYear());
   renderTypeFields("website", getDefaultFieldValues("website"));
-  updateMarginLabel();
   setPreviewPlaceholderVisible(true);
   dom.previewContent.textContent = "—";
   dom.previewType.textContent = "Website URL";
@@ -566,7 +521,6 @@ async function bootstrap() {
   cacheDom();
   initTheme();
   prepareInitialState();
-  updateMarginLabel();
   bindRippleEffects();
   bindSmoothScroll();
   bindInputEvents();

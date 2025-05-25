@@ -10,7 +10,7 @@ const FIELD_COPY = {
 };
 
 export const DEFAULT_SETTINGS = {
-  size: 256,
+  size: 275,
   foreground: "#7c6af7",
   background: "#ffffff",
   margin: 2,

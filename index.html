@@ -162,19 +162,10 @@
 
               <div class="panel-subtitle">
                 <h3>Customization</h3>
-                <p>Fine-tune appearance and error resilience.</p>
+                <p>Choose your QR code colors.</p>
               </div>
 
               <div class="custom-grid">
-                <div class="field-group">
-                  <label for="qrSize">QR Size</label>
-                  <select id="qrSize" class="input">
-                    <option value="128">128 px</option>
-                    <option value="256" selected>256 px</option>
-                    <option value="512">512 px</option>
-                  </select>
-                </div>
-
                 <div class="field-group">
                   <label for="qrForeground">QR Color</label>
                   <input id="qrForeground" class="input color-input" type="color" value="#7c6af7" aria-label="QR foreground color" />
@@ -184,31 +175,12 @@
                   <label for="qrBackground">Background Color</label>
                   <input id="qrBackground" class="input color-input" type="color" value="#ffffff" aria-label="QR background color" />
                 </div>
-
-                <div class="field-group range-group">
-                  <div class="label-row">
-                    <label for="qrMargin">Margin Size</label>
-                    <span id="qrMarginValue">2</span>
-                  </div>
-                  <input id="qrMargin" class="range-input" type="range" min="0" max="10" step="1" value="2" />
-                </div>
-
-                <div class="field-group">
-                  <label for="errorCorrection">Error Correction</label>
-                  <select id="errorCorrection" class="input">
-                    <option value="L">L — Low</option>
-                    <option value="M" selected>M — Medium</option>
-                    <option value="Q">Q — Quartile</option>
-                    <option value="H">H — High</option>
-                  </select>
-                </div>
-
-                <div class="field-group upload-group">
-                  <label for="logoUpload">Optional Logo</label>
-                  <input id="logoUpload" class="file-input" type="file" accept="image/*" />
-                  <p class="helper-text">Logo will be centered inside the QR with a white plate.</p>
-                </div>
               </div>
+
+              <input id="qrSize" type="hidden" value="275" />
+              <input id="qrMargin" type="hidden" value="2" />
+              <input id="errorCorrection" type="hidden" value="M" />
+              <input id="logoUpload" type="hidden" value="" />
 
               <div id="formErrors" class="form-errors" role="alert" aria-live="assertive"></div>
 
