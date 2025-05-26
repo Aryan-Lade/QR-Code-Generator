@@ -277,7 +277,6 @@ async function generateAndSave({ showSuccess = true } = {}) {
       errorCorrectionLevel: settings.errorCorrectionLevel,
       foreground: settings.foreground,
       background: settings.background,
-      logoDataUrl: state.currentLogoDataUrl,
     });
 
     const record = {
@@ -292,7 +291,6 @@ async function generateAndSave({ showSuccess = true } = {}) {
       previewDataUrl: dataUrl,
       svgMarkup: svg,
       timestamp,
-      logoDataUrl: state.currentLogoDataUrl,
     };
 
     addHistoryItem(record);
