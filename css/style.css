@@ -1394,23 +1394,23 @@ button:focus-visible, a:focus-visible {
     position: fixed;
     top: 0;
     left: 0;
-    width: 16px;
-    height: 16px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6), 0 0 28px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 22px rgba(255, 255, 255, 0.3);
     opacity: 1;
     transition: opacity 200ms ease, transform 120ms ease, width 180ms ease, height 180ms ease;
     will-change: transform;
   }
 
   .cursor.is-hovering {
-    width: 36px;
-    height: 36px;
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 0 16px rgba(255, 255, 255, 0.4), 0 0 40px rgba(255, 255, 255, 0.15);
+    width: 26px;
+    height: 26px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.4), 0 0 32px rgba(255, 255, 255, 0.15);
     outline: 2px solid rgba(255, 255, 255, 0.8);
   }
 

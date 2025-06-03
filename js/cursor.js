@@ -15,7 +15,7 @@
   ].join(", ");
 
   function updatePosition() {
-    var half = isHovering ? 18 : 8;
+    var half = isHovering ? 13 : 5;
     cursor.style.transform = "translate(" + (cursorX - half) + "px, " + (cursorY - half) + "px)";
   }
 
