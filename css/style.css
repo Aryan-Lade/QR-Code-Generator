@@ -136,10 +136,10 @@ body::after {
 
 .topbar {
   position: sticky;
-  top: 16px;
+  top: 0;
   z-index: 100;
   width: min(calc(100% - 32px), var(--container));
-  margin: 16px auto 0;
+  margin: 0 auto;
   border-radius: 999px;
   border: 1px solid var(--border-bright);
   background: rgba(6, 11, 24, 0.72);
@@ -1362,7 +1362,7 @@ button:focus-visible, a:focus-visible {
 }
 
 @media (max-width: 860px) {
-  .topbar { top: 0; border-radius: 0 0 20px 20px; width: 100%; margin-top: 0; }
+  .topbar { border-radius: 0 0 20px 20px; width: 100%; }
   .nav-inner { flex-wrap: wrap; min-height: auto; padding: 12px 16px; }
   .main-nav { order: 3; width: 100%; padding-top: 8px; border-top: 1px solid var(--border); justify-content: space-around; gap: 4px; }
   .history-grid { grid-template-columns: repeat(2, 1fr); }
