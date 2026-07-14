@@ -51,6 +51,6 @@ The app uses a local browser bundle for QR generation:
 
 ## Notes
 
-- Generated history, theme, download counts, and analytics are stored in `localStorage`.
+- Generated history, theme, download counts, and analytics are stored in `localStorage` .
 - Logo uploads are used for live previews and generation, but uploaded files are not persisted.
 - For best results, serve the project from a local web server instead of opening it as a raw file URL.
